@@ -1,0 +1,5 @@
+---
+
+- name: adding "{{ list }}"
+  command: "nfacct add {{ list }}"
+  when: not ansible_check_mode and list not in existing_lists.stdout

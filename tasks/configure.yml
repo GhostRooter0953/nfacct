@@ -1,0 +1,21 @@
+---
+
+- name: generate nfacct.list
+  lineinfile:
+    dest: /etc/network/nfacct.list
+    regexp: "^.+= {{ item }};"
+    line: "{ pkts = 00000000000000000000, bytes = 00000000000000000000 } = {{ item }};"
+    create: yes
+  with_items: "{{ nfacct_lists }}"
+
+- name: get existing nfacct lists
+  command: nfacct list
+  register: existing_lists
+  changed_when: false
+
+- name: create missing nfacct lists
+  include_tasks: lists.yml
+  when: nfacct_lists | length > 0
+  loop: "{{ nfacct_lists }}"
+  loop_control:
+    loop_var: list

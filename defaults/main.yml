@@ -1,0 +1,7 @@
+---
+
+nfacct_setup: full
+nfacct_packages:
+  - nfacct
+
+nfacct_lists: []

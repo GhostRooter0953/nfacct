@@ -1,0 +1,9 @@
+---
+
+- name: install
+  include_tasks: install.yml
+  when: nfacct_setup == "full" or nfacct_setup == "install"
+
+- name: configure
+  import_tasks: configure.yml
+  when: nfacct_setup == "full" or nfacct_setup == "configure"
